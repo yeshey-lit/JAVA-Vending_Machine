@@ -1,0 +1,132 @@
+import java.text.DecimalFormat;
+
+/**
+ * This assignment is based on how a vending machine works
+ * @author Yeshey Dema (000824243)
+ */
+
+public class VendingMachine {
+    /**Item Name initialized**/
+    private String itemName = "Diet Coke";
+    /**Price initialized**/
+    private double price = 1.99;
+    /**Quantity initialized**/
+    private int quantity = 8;
+    /**Unused Credit initialized**/
+    private double unusedCredit = 0.0;
+    /**Total Amount initialized**/
+    private double totalAmount = 0.0;
+
+    /**
+     *
+     * @param itemName
+     */
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    /**
+     *
+     * @param price
+     */
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    /**
+     *
+     * @param quantity
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * Add Toonie i.e 2 to unused credit
+     */
+    public void insertToonie() {
+        this.unusedCredit += 2.0;
+    }
+
+    /**
+     * Add Loonie i.e 1 to unused credit
+     */
+    public void insertLoonie() {
+        this.unusedCredit += 1.0;
+    }
+
+    /**
+     * Add Quarter i.e 0.25 to unused credit
+     */
+    public void insertQuarter() {
+        this.unusedCredit += 0.25;
+    }
+
+    /**
+     * Add Dime i.e 0.10 to unused credit
+     */
+    public void insertDime() {
+        this.unusedCredit += 0.10;
+    }
+
+    /**
+     * Add Nickel i.e 0.05 to unused credit
+     */
+    public void insertNickel() {
+        this.unusedCredit += 0.05;
+    }
+
+    /**
+     * If unused credit is 0 or less than price, display not enough credit
+     * If quantity is 0, display out of item
+     * If quantity is not 0, deduct from quantity, deduct price from unused credit, add the price to the total amount
+     * and display to collect the item purchased
+     */
+    public void vendItem() {
+        if (this.unusedCredit == 0.0 || this.unusedCredit < this.price) {
+            System.out.println("SORRY. Not enough credit!");
+        } else if (this.quantity == 0) {
+            System.out.println("OUT OF ITEM!");
+        } else if (this.quantity != 0) {
+            this.quantity -= 1;
+            this.unusedCredit -= this.price;
+            this.totalAmount += this.price;
+            System.out.println("Collect your " + this.itemName);
+        }
+    }
+
+    /**
+     * Checks if there is credit to return or else set the unused credit to 0 when remaining change returned
+     */
+    public void getChange() {
+        if (this.unusedCredit == 0){
+            System.out.println("No unused credit to return!");
+        }
+        else{
+            this.unusedCredit = 0.0;
+        }
+
+    }
+
+    /**
+     * Return the remaining change when user leaves the vending machine without selecting the return change
+     */
+    public void leave() {
+        if (this.unusedCredit != 0.0) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            System.out.println("Please take your change: $" + df.format(this.unusedCredit));
+            this.unusedCredit = 0.0;
+        }
+    }
+
+    /**
+     *
+     * @return  To return the updated values
+     */
+    public String toString() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return ("Vending Machine: " + "Item: " + this.itemName + "   Price: $" + this.price +
+                "   Quantity: " + this.quantity + "   Unused Credit: $" + df.format(this.unusedCredit) +
+                "   Total Collected: $" + df.format(this.totalAmount));
+    }
+}
