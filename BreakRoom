@@ -1,0 +1,181 @@
+import java.util.Scanner;
+
+/**
+ * This assignment is based on how a vending machine works
+ * @author Yeshey Dema (000824243)
+ */
+
+public class BreakRoom {
+    /**
+     * A method to test the object
+     * @param args
+     */
+    public static void main(String[] args) {
+        System.out.println("\n-------------------------------------Assignment 2: Yeshey Dema (000824243)--------------------------------------");
+        //Scanner input
+        Scanner input = new Scanner(System.in);
+
+        //Two vending machine created
+        VendingMachine machine1 = new VendingMachine();
+        VendingMachine machine2 = new VendingMachine();
+
+        //Setting second machine with parameters
+        machine2.setItemName("Sushi bento");
+        machine2.setPrice(12.99);
+        machine2.setQuantity(2);
+
+        //Initialize variables
+        String machineNum = "0";
+        String welcome = "0";
+        String moneyNum = "0";
+        String choice = "0";
+
+
+        here:     //Used here to continue the loop when user opts to leave from vending machine
+        //The main vending machine interface
+        do {
+            //Display two vending machines using toString class
+            System.out.println("\n|------------------------------------------Welcome to the break room-------------------------------------------|" +
+                    "\nThere are two vending machines here:\n" +
+                    "1. " + machine1 + "\n2. " + machine2 + "\n3. Exit break room");
+            welcome = "\nPlease enter machine number 1 or 2 or 3 to exit: ";
+
+            //Display vending options
+            String question = "Welcome to the vending machine!\n" +
+                    "Choose from the following options:\n" +
+                    "1. Enter money\n" +
+                    "2. Vend item\n" +
+                    "3. Get change back\n" +
+                    "4. Leave the vending machine\n" +
+                    "Enter your choice: ";
+
+            //Display money options
+            String money = "Which coins:\n" +
+                    "1. Insert Toonie, " +
+                    "2. Insert Loonie, " +
+                    "3. Insert Quarter, " +
+                    "4. Insert Dime, " +
+                    "5. Insert Nickel\nEnter coin number: ";
+
+            System.out.print(welcome);
+            machineNum = input.next();  //Retrieving the machine number entered
+
+            //Switch for vending options
+            switch (machineNum) {
+                //Vending Machine number 1
+                case "1":
+                    //While loop to do the options for vending machine 1
+                    do {
+                        //Vending Machine 1 information
+                        System.out.println("\n|**********************************************"+
+                                "****************************************************************|\n" +
+                                machine1 + "\n|**********************************************"+
+                                "****************************************************************|\n");
+                        System.out.print(question);     //Display the vending options
+                        choice = input.next();          //Retrieve the number selected
+
+                        //switch to work on the vending options
+                        switch (choice) {
+                            //Enter money
+                            case "1":
+                                    System.out.print(money);    //Display money options
+                                    moneyNum = input.next();    //Retrieve number entered
+                                    //switch to enter the coins
+                                    switch (moneyNum){
+                                        case "1":
+                                            machine1.insertToonie();
+                                            break;
+                                        case "2":
+                                            machine1.insertLoonie();
+                                            break;
+                                        case "3":
+                                            machine1.insertQuarter();
+                                            break;
+                                        case "4":
+                                            machine1.insertDime();
+                                        case "5":
+                                            machine1.insertNickel();
+                                            break;
+                                        default:
+                                            System.out.println("INVALID coin number!");
+                                            break;
+                                    }
+                                break;
+                            case "2":
+                                machine1.vendItem();    //vend item
+                                break;
+                            case "3":
+                                machine1.getChange();   //get the remaining money
+                                break;
+                            case "4":
+                                machine1.leave();       //To receive the remaining money if the user leaves without collecting it
+                                continue here;          //To go back to the break room for vending machine selection
+                            default:
+                                System.out.println("INVALID! Enter number from 1-4!");
+                                break;
+                        }
+                    } while (choice != "4"); //Will loop until 4 is not entered
+
+                case "2":
+                    //While loop to do the options for vending machine 2
+                    do {
+                        //Vending Machine 2 information
+                        System.out.println("\n|**********************************************"+
+                                "****************************************************************|\n" +
+                                machine2 + "\n|**********************************************"+
+                                "****************************************************************|\n");
+                        System.out.print(question);
+                        choice = input.next();
+
+                        //switch to work on the vending options
+                        switch (choice) {
+                            case "1":
+                                System.out.print(money);    //Display money options
+                                moneyNum = input.next();    //Retrieve number entered
+                                //switch to enter the coins
+                                switch (moneyNum) {
+                                    case "1":
+                                        machine2.insertToonie();
+                                        break;
+                                    case "2":
+                                        machine2.insertLoonie();
+                                        break;
+                                    case "3":
+                                        machine2.insertQuarter();
+                                        break;
+                                    case "4":
+                                        machine2.insertDime();
+                                    case "5":
+                                        machine2.insertNickel();
+                                        break;
+                                    default:
+                                        System.out.println("INVALID coin number!");
+                                        break;
+                                }
+                                break;
+                            case "2":
+                                machine2.vendItem();    //vend item
+                                break;
+                            case "3":
+                                machine2.getChange();   //get the remaining change
+                                break;
+                            case "4":
+                                machine2.leave();      //To receive the remaining money if the user leaves without collecting it
+                                continue here;      //To go back to the break room for vending machine selection
+                            default:
+                                System.out.println("INVALID! Enter number from 1-4!");
+                                break;
+                        }
+                    } while (choice != "4");
+                case "3":
+                    System.out.println("GOODBYE! Have a nice day :)"); //Exit the break room
+                    break;
+                default:
+                    System.out.println("INVALID! Enter numbers 1 or 2 or 3!");
+                    break;
+
+            }
+
+        } while (Integer.parseInt(machineNum) != 3); //loop until 3 is entered
+    }
+}
